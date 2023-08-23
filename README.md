@@ -3,7 +3,7 @@
 The project for study Django.
 
 #### Stack:
-
+- [Linux Ubuntu](https://ubuntu.com/)
 - [Python](https://www.python.org/downloads/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Redis](https://redis.io/)
@@ -16,7 +16,7 @@ All actions should be executed from the source directory of the project and only
 1. Firstly, create and activate a new virtual environment:
    ```bash
    python3 -m venv ../venv
-   source ../venv/bin/activate
+   source /venv/bin/activate
    ```
    
 2. Install packages:
@@ -41,8 +41,3 @@ All actions should be executed from the source directory of the project and only
    ```bash
    celery -A store worker --loglevel=INFO
    ```
-
-
-## Docker-compose startup
-
-in development...
