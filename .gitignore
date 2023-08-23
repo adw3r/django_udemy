@@ -1,3 +1,4 @@
 /venv/
 /.idea
 /store/db.sqlite3
+/store/.env
