@@ -14,11 +14,14 @@
 
                 <h1 class="my-4">Store</h1>
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Новинки</a>
-                    <a href="#" class="list-group-item">Одежда</a>
-                    <a href="#" class="list-group-item">Обувь</a>
-                    <a href="#" class="list-group-item">Аксессуары</a>
-                    <a href="#" class="list-group-item">Подарки</a>
+                    {% for category in categories %}
+                        <a href="#" class="list-group-item">{{ category.name }}</a>
+
+                    {% endfor %}
+{#                    <a href="#" class="list-group-item">Одежда</a>#}
+{#                    <a href="#" class="list-group-item">Обувь</a>#}
+{#                    <a href="#" class="list-group-item">Аксессуары</a>#}
+{#                    <a href="#" class="list-group-item">Подарки</a>#}
                 </div>
 
             </div>
@@ -63,14 +66,14 @@
                             <div class="card h-100">
                                 <a href="#">
                                     <img class="card-img-top"
-                                         src="{{ product.image }}"
+                                         src="{{ product.img.url }}"
                                          alt="">
                                 </a>
                                 <div class="card-body">
                                     <h4 class="card-title">
                                         <a href="#">{{ product.title }}</a>
                                     </h4>
-                                    <h5>{{ product.price }} руб.</h5>
+                                    <h5>{{ product.price }} Usd.</h5>
                                     <p class="card-text">{{ product.description }}</p>
                                 </div>
                                 <div class="card-footer text-center">
