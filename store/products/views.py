@@ -5,7 +5,7 @@ from products.models import ProductCategory, Product
 
 def index(request: HttpRequest):
     context = {
-        'title': 'Test title',
+        'title': 'Django store',
         'username': 'wezxasqw',
         'is_flagged': True
     }
@@ -13,7 +13,6 @@ def index(request: HttpRequest):
 
 
 def products(request: HttpRequest):
-    Product.objects.all()
     context = {
         'title': 'My products',
         'products': Product.objects.all(),
