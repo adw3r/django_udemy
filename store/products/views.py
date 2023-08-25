@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
+
 from products.models import ProductCategory, Product, Bucket
 
 
@@ -21,6 +23,7 @@ def products(request: HttpRequest):
     return render(request, 'products/products.html', context=context)
 
 
+@login_required
 def bucket_add(request, product_id):
     product = Product.objects.get(id=product_id)
     buckets = Bucket.objects.filter(user=request.user, product=product)
@@ -36,6 +39,7 @@ def bucket_add(request, product_id):
     # return HttpResponseRedirect(request.path)
 
 
+@login_required
 def bucket_remove(request, bucket_id):
     bucket = Bucket.objects.get(id=bucket_id)
     bucket.delete()

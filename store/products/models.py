@@ -24,11 +24,25 @@ class Product(models.Model):
         return f'{type(self).__name__}(title={self.title!r}, category={self.category})'
 
 
+class BucketQuerySet(models.QuerySet):
+
+    def total_sum(self):
+        return sum(b.sum() for b in self)
+
+    def total_qty(self):
+        return sum(b.qty for b in self)
+
+
 class Bucket(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     qty: int = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    objects = BucketQuerySet.as_manager()
+
     def __str__(self):
         return f'{type(self).__name__}(product={self.product}, user={self.user})'
+
+    def sum(self):
+        return self.product.price * self.qty

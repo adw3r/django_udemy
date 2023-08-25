@@ -1,11 +1,14 @@
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
+
 from products import models
 from users.forms import UserLoginForm, UserRegForm, UserProfileForm
 
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
@@ -17,7 +20,7 @@ def profile(request):
     context = {
         'title': 'Profile',
         'form': form,
-        'bucket': models.Bucket.objects.filter(user=request.user)
+        'bucket': models.Bucket.objects.filter(user=request.user),
     }
     return render(request, 'users/profile.html', context)
 
