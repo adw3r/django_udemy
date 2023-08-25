@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class ProductCategory(models.Model):
     name: str = models.CharField(max_length=128, unique=True)
@@ -20,3 +22,13 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{type(self).__name__}(title={self.title!r}, category={self.category})'
+
+
+class Bucket(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+    qty: int = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{type(self).__name__}(product={self.product}, user={self.user})'
