@@ -1,11 +1,31 @@
-from common.views import TitleMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
+from django.shortcuts import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView
+from django.views.generic.base import TemplateView
+
+from common.views import TitleMixin
 from products import models
-from users.forms import UserLoginForm, UserRegForm, UserProfileForm
-from users.models import User
+from users.forms import UserLoginForm, UserProfileForm, UserRegForm
+from users.models import User, UserEmailVerification
+
+
+class EmailVerificationView(TitleMixin, TemplateView):
+    title = 'Django store email verification'
+    template_name = 'users/email_verification.html'
+
+    def get(self, request, *args, **kwargs):
+        code = self.kwargs['code']
+        user = User.objects.get(email=self.kwargs['email'])
+        email_verifications = UserEmailVerification.objects.filter(user=user, code=code)
+        if email_verifications.exists() and not email_verifications.first().is_expired():
+            user.is_verified = True
+            user.save()
+            req = super().get(request, *args, **kwargs)
+            return req
+        else:
+            return HttpResponseRedirect(reverse('index'))
 
 
 class UserCreateView(TitleMixin, SuccessMessageMixin, CreateView):
@@ -30,13 +50,6 @@ class UserUpdateView(TitleMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('users:profile', args=(self.object.id,))
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data.update(
-            {'bucket': models.Bucket.objects.filter(user=self.object)}
-        )
-        return data
 
 # def logout(request):
 #     auth.logout(request)
