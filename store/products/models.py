@@ -7,6 +7,10 @@ class ProductCategory(models.Model):
     name: str = models.CharField(max_length=128, unique=True)
     description: str = models.TextField(null=True, blank=True)
 
+    class Meta:
+        verbose_name_plural = 'Categories'
+        verbose_name = 'Category'
+
     def __str__(self):
         return f'{type(self).__name__}(name={self.name!r})'
 
@@ -19,6 +23,10 @@ class Product(models.Model):
     img = models.ImageField(upload_to='products_images')
 
     category: int = models.ForeignKey(to=ProductCategory, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
 
     def __str__(self):
         return f'{type(self).__name__}(title={self.title!r}, category={self.category})'
