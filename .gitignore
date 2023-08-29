@@ -2,3 +2,4 @@
 /.idea
 /store/db.sqlite3
 /store/.env
+/store/postgres-data/

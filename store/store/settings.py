@@ -33,7 +33,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'products',
-    'users'
+    'users',
+    'django.contrib.postgres',
+
+    # oauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -73,10 +80,21 @@ WSGI_APPLICATION = 'store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',  # Используется PostgreSQL
+        'NAME': env('POSTGRES_DB'),  # Имя базы данных
+        'USER': env('POSTGRES_USER'),  # Имя пользователя
+        'PASSWORD': env('POSTGRES_PASSWORD'),  # Пароль пользователя
+        'HOST': env('POSTGRES_HOST'),  # Наименование контейнера для базы данных в Docker Compose
+        'PORT': env('POSTGRES_PORT_EXPOSED'),  # Порт базы данных
     }
 }
 
@@ -136,3 +154,22 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
+
+# auth backends
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
+    }
+}
