@@ -28,8 +28,7 @@ All actions should be executed from the source directory of the project and only
 3. Run project dependencies, migrations, fill the database with the fixture data etc.:
    ```bash
    ./manage.py migrate
-   ./manage.py loaddata fixtures/categories.json
-   ./manage.py loaddata fixtures/products.json
+   ./manage.py loaddata <fixtures>
    ./manage.py createsuperuser
    ./manage.py runserver 
    ```

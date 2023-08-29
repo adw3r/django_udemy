@@ -4,7 +4,7 @@
     "pk": 3,
     "fields": {
       "title": "ASOS DESIGN ultimate cropped shirt in blue",
-      "description": "",
+      "description": "[description] ultimate cropped shirt in blue",
       "price": "21.00",
       "qty": 22,
       "img": "products_images/photo_2023-08-24_14-29-02.jpg",
@@ -16,7 +16,7 @@
     "pk": 4,
     "fields": {
       "title": "ASOS 4505 Petite Icon long sleeve slim fit top",
-      "description": "",
+      "description": "[description] ultimate cropped shirt in blue",
       "price": "1111.00",
       "qty": 12,
       "img": "products_images/photo_2023-08-24_14-35-14.jpg",
@@ -28,7 +28,7 @@
     "pk": 5,
     "fields": {
       "title": "ASOS EDITION mesh halter sleeveless maxi dress with floral embroidery in black",
-      "description": "",
+      "description": "[description] mesh halter sleeveless maxi dress with floral embroidery in black",
       "price": "1200.00",
       "qty": 13,
       "img": "products_images/photo_2023-08-24_14-36-34.jpg",
@@ -40,7 +40,7 @@
     "pk": 6,
     "fields": {
       "title": "New Balance 2002 trainers in grey multi",
-      "description": "",
+      "description": "[description] trainers in grey multi",
       "price": "137.00",
       "qty": 11,
       "img": "products_images/photo_2023-08-24_14-37-25.jpg",
@@ -52,9 +52,9 @@
     "pk": 7,
     "fields": {
       "title": "Levi's Convertible cargo skirt in green with pockets",
-      "description": "",
+      "description": "[description] cargo skirt in green with pockets",
       "price": "1200.00",
-      "qty": 12,
+      "qty": 16,
       "img": "products_images/photo_2023-08-24_14-38-10.jpg",
       "category": 5
     }
