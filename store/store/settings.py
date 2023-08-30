@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # postgres
     'django.contrib.postgres',
+    'django.contrib.humanize',
     # django debug toolbar
     'debug_toolbar',
     # store apps
