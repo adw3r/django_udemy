@@ -34,17 +34,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # postgres
+    'django.contrib.postgres',
     # django debug toolbar
     'debug_toolbar',
-
     # store apps
     'products',
     'users',
-
-    # postgres
-    'django.contrib.postgres',
-
+    'orders',
     # oauth
     'allauth',
     'allauth.account',
