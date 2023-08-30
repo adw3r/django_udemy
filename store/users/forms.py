@@ -7,8 +7,8 @@ from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
 from django.utils.timezone import now
 
 from users.models import User, UserEmailVerification
+from users.tasks import send_email_verif
 
-EMAIL_VERIF_EXPIRATION_LIMIT = 60
 
 
 class UserLoginForm(AuthenticationForm):
@@ -90,9 +90,7 @@ class UserRegForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=commit)
-        expiration = now() + timedelta(minutes=EMAIL_VERIF_EXPIRATION_LIMIT)
-        record = UserEmailVerification.objects.create(code=uuid.uuid4(), user=user, expiration=expiration)
-        record.send_verification_email()
+        send_email_verif.delay(user.id)
         return user
 
 

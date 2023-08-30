@@ -28,12 +28,13 @@ class UserEmailVerification(models.Model):
             }
         )
         link = f'{settings.DOMAIN_NAME}{link}'
-        send_mail(
+        res = send_mail(
             subject='Django store email verification email',
             message=f'Django store email verification link {link}',
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.user.email]
         )
+        print(res)
 
     def is_expired(self) -> bool:
         return True if now() >= self.expiration else False

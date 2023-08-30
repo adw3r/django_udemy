@@ -2,3 +2,5 @@
 /static
 docker-compose.yml
 Dockerfile
+postgres-data
+redis

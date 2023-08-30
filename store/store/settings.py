@@ -109,11 +109,15 @@ DATABASES = {
         'PORT': env('POSTGRES_PORT_EXPOSED'),  # Порт базы данных
     }
 }
+REDIS_URL = f'redis://{env("REDIS_HOST")}:{env("REDIS_PORT")}'
+
+CELERY_BROKER_URL = REDIS_URL
+CELERY_RESULT_BACKEND = REDIS_URL
 
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': f'redis://{env("REDIS_HOST")}:{env("REDIS_PORT")}',
+        'LOCATION': REDIS_URL,
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient'
         }

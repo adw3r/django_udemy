@@ -1,19 +1,23 @@
 version: "3.8"
 
 services:
-  #  app:
-  #    command: >
-  #      sh -c "python3 manage.py migrate &&
-  #             python3 manage.py runserver 0.0.0.0:8000"
-  #    image: alexeynaidiuk/django-store:latest
-  #    restart: always
-  #    environment:
-  #      - .env
-  #    ports:
-  #      - "8000:8000"
-  #    volumes:
-  #      - ./static:./static
-  #      - ./media:./media
+  app:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:${PORT}
+    image: alexeynaidiuk/django-store:latest
+    restart: always
+    environment:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
+    networks:
+      - django-store
+    depends_on:
+      - redis
+      - db
   db:
     image: postgres:15-alpine
     restart: always
@@ -39,28 +43,18 @@ services:
       - db
     networks:
       - django-store
-#  celery:
-#    build: ./project
-#    command: celery -A core worker -l info
-#    volumes:
-#      - ./project/:/usr/src/app/
-#    environment:
-#      - DEBUG=1
-#      - SECRET_KEY=${CELERY_SECRET_KEY}
-#      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-#    depends_on:
-#      - redis
-#  celery-beat:
-#    build: ./project
-#    command: celery -A core beat -l info
-#    volumes:
-#      - ./project/:/usr/src/app/
-#    environment:
-#      - DEBUG=1
-#      - SECRET_KEY=${CELERY_SECRET_KEY}
-#      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-#    depends_on:
-#      - redis
+  celery:
+    image: alexeynaidiuk/django-store:latest
+    build: .
+    command: celery -A store worker -l INFO
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    networks:
+      - django-store
 networks:
   django-store:
     name: "django-store"
