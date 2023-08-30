@@ -3,3 +3,4 @@
 /store/db.sqlite3
 /store/.env
 /store/postgres-data/
+/store/redis/

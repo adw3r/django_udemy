@@ -20,7 +20,10 @@ SECRET_KEY = 'django-insecure-#%v)-rg)h1zqbxi^@^me)pl@!svg(gu6zl@ns33xplene42%&_
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
-
+INTERNAL_IPS = [
+    "127.0.0.1",
+    'localhost'
+]
 DOMAIN_NAME = 'http://10.107.8.10:8000'
 # Application definition
 
@@ -32,8 +35,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # django debug toolbar
+    'debug_toolbar',
+
+    # store apps
     'products',
     'users',
+
+    # postgres
     'django.contrib.postgres',
 
     # oauth
@@ -51,6 +60,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # django debug
+    "debug_toolbar.middleware.DebugToolbarMiddleware"
 ]
 
 CSRF_USE_SESSIONS = True
@@ -95,6 +107,16 @@ DATABASES = {
         'PASSWORD': env('POSTGRES_PASSWORD'),  # Пароль пользователя
         'HOST': env('POSTGRES_HOST'),  # Наименование контейнера для базы данных в Docker Compose
         'PORT': env('POSTGRES_PORT_EXPOSED'),  # Порт базы данных
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': f'redis://{env("REDIS_HOST")}:{env("REDIS_PORT")}',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient'
+        }
     }
 }
 

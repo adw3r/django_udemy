@@ -1,19 +1,19 @@
 version: "3.8"
 
 services:
-  app:
-    command: >
-      sh -c "python3 manage.py migrate &&
-             python3 manage.py runserver 0.0.0.0:8000"
-    image: alexeynaidiuk/django-store:latest
-    restart: always
-    environment:
-      - .env
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./static:./static
-      - ./media:./media
+  #  app:
+  #    command: >
+  #      sh -c "python3 manage.py migrate &&
+  #             python3 manage.py runserver 0.0.0.0:8000"
+  #    image: alexeynaidiuk/django-store:latest
+  #    restart: always
+  #    environment:
+  #      - .env
+  #    ports:
+  #      - "8000:8000"
+  #    volumes:
+  #      - ./static:./static
+  #      - ./media:./media
   db:
     image: postgres:15-alpine
     restart: always
@@ -23,13 +23,45 @@ services:
       - "${POSTGRES_PORT_EXPOSED}:${POSTGRES_PORT}"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
-#  redis:
-#    image: redis:7-alpine
-#    restart: always
-#    ports:
-#      - '6378:6379'
-#    command: redis-server --save 20 1 --loglevel warning
+    networks:
+      - django-store
+  redis:
+    image: redis:7-alpine
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - '${REDIS_PORT}:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - ./redis:/data
+    depends_on:
+      - db
+    networks:
+      - django-store
+#  celery:
+#    build: ./project
+#    command: celery -A core worker -l info
 #    volumes:
-#      - ./redis:/data
+#      - ./project/:/usr/src/app/
+#    environment:
+#      - DEBUG=1
+#      - SECRET_KEY=${CELERY_SECRET_KEY}
+#      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
 #    depends_on:
-#      - db
+#      - redis
+#  celery-beat:
+#    build: ./project
+#    command: celery -A core beat -l info
+#    volumes:
+#      - ./project/:/usr/src/app/
+#    environment:
+#      - DEBUG=1
+#      - SECRET_KEY=${CELERY_SECRET_KEY}
+#      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+#    depends_on:
+#      - redis
+networks:
+  django-store:
+    name: "django-store"
+    driver: bridge
