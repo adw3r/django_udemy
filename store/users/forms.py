@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
                                        UserCreationForm)
 from django.utils.timezone import now
+
 from users.models import User, UserEmailVerification
 
 EMAIL_VERIF_EXPIRATION_LIMIT = 60
