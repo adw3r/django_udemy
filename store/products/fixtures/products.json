@@ -8,6 +8,7 @@
       "price": "21.00",
       "qty": 22,
       "img": "products_images/photo_2023-08-24_14-29-02.jpg",
+      "stripe_price_id": "price_1NlACPJy7wtuX17skzaL1S0a",
       "category": 3
     }
   },
@@ -20,6 +21,7 @@
       "price": "1111.00",
       "qty": 12,
       "img": "products_images/photo_2023-08-24_14-35-14.jpg",
+      "stripe_price_id": "price_1NlACQJy7wtuX17smXrGxMWQ",
       "category": 7
     }
   },
@@ -32,6 +34,7 @@
       "price": "1200.00",
       "qty": 13,
       "img": "products_images/photo_2023-08-24_14-36-34.jpg",
+      "stripe_price_id": "price_1NlACRJy7wtuX17sRImW1o8D",
       "category": 6
     }
   },
@@ -44,6 +47,7 @@
       "price": "137.00",
       "qty": 11,
       "img": "products_images/photo_2023-08-24_14-37-25.jpg",
+      "stripe_price_id": "price_1NlACSJy7wtuX17sXRTSXfDW",
       "category": 4
     }
   },
@@ -56,6 +60,7 @@
       "price": "1200.00",
       "qty": 16,
       "img": "products_images/photo_2023-08-24_14-38-10.jpg",
+      "stripe_price_id": "price_1NlACTJy7wtuX17sDrSpvnH2",
       "category": 5
     }
   }

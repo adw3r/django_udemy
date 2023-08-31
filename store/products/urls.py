@@ -1,5 +1,4 @@
 from django.urls import path
-
 from products.views import ProductsListView, bucket_add, bucket_remove
 
 app_name = 'products'

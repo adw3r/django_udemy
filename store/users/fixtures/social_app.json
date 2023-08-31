@@ -1,1 +1,15 @@
-[{"model": "socialaccount.socialapp", "pk": 1, "fields": {"provider": "github", "provider_id": "", "name": "Github", "client_id": "e010c3c5f960274ba72a", "secret": "3605916594b0c0725c5aded5489cd2d4ed9b8171", "key": "", "settings": {}}}]
+[
+  {
+    "model": "socialaccount.socialapp",
+    "pk": 1,
+    "fields": {
+      "provider": "github",
+      "provider_id": "",
+      "name": "Github",
+      "client_id": "e010c3c5f960274ba72a",
+      "secret": "3605916594b0c0725c5aded5489cd2d4ed9b8171",
+      "key": "",
+      "settings": {}
+    }
+  }
+]

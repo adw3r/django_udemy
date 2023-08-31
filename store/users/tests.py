@@ -4,7 +4,6 @@ from http import HTTPStatus
 from django.test.testcases import TestCase
 from django.urls import reverse
 from django.utils.timezone import now
-
 from users.models import User, UserEmailVerification
 
 

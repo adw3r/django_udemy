@@ -4,7 +4,7 @@ services:
   app:
     build: .
     command: python3 manage.py runserver 0.0.0.0:${PORT}
-    image: alexeynaidiuk/django-store:latest
+    image: django-store
     restart: always
     environment:
       - .env
@@ -17,7 +17,7 @@ services:
       - django-store
     depends_on:
       - redis
-      - db
+      - celery
   db:
     image: postgres:15-alpine
     restart: always
@@ -44,7 +44,7 @@ services:
     networks:
       - django-store
   celery:
-    image: alexeynaidiuk/django-store:latest
+    image: django-store
     build: .
     command: celery -A store worker -l INFO
     volumes:

@@ -1,5 +1,5 @@
 from django.db import models
-
+from products.models import Bucket
 from users.models import User
 
 
@@ -27,3 +27,14 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{type(self).__name__}(id={self.id}, status={self.status}, user={self.user})'
+
+    def update_after_payment(self):
+        buckets = Bucket.objects.filter(user=self.user)
+        self.status = self.PAID
+        self.bucket_history = {
+            'purchased_items': [b.to_json() for b in buckets],
+            'total_sum': float(buckets.total_sum()),
+        }
+
+        buckets.delete()
+        self.save()

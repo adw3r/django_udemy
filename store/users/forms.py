@@ -1,6 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm, UserCreationForm)
-
+from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
+                                       UserCreationForm)
 from users.models import User
 from users.tasks import send_email_verif
 
@@ -23,7 +23,6 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserRegForm(UserCreationForm):
-
     first_name = forms.CharField(
         widget=forms.TextInput(
             attrs={'class': 'form-control py-4', 'placeholder': 'Введите имя'}
