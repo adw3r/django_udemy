@@ -1,28 +1,29 @@
 version: "3.8"
 
 services:
-  nginx:
-    image: nginx:latest
-    restart: always
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./static:/home/app/web/staticfiles
-    ports:
-      - "8000:80"
-    depends_on:
-      - app
-    networks:
-      - django-store
+#  nginx:
+#    image: nginx:latest
+#    restart: always
+#    volumes:
+#      - ./nginx.conf:/etc/nginx/nginx.conf
+#      - ./static:/home/app/web/staticfiles
+#    ports:
+#      - "8000:80"
+#    depends_on:
+#      - app
+#    networks:
+#      - django-store
   app:
     build: .
-#    command: python3 manage.py runserver 0.0.0.0:${PORT}
     command: gunicorn store.wsgi:application --bind 0.0.0.0:${PORT}
     image: django-store
     restart: always
+    environment:
+      - DEBUG=false
     env_file:
       - .env
     ports:
-      - "8000"
+      - "8000:8000"
     volumes:
       - ./static:/app/static
       - ./media:/app/media

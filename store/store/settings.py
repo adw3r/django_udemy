@@ -19,13 +19,13 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
+DOMAIN_NAME = env('DOMAIN_NAME')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [env('HOST')]
 INTERNAL_IPS = [
     "127.0.0.1",
     'localhost'
 ]
-DOMAIN_NAME = env('DOMAIN_NAME')
 # Application definition
 
 INSTALLED_APPS = [

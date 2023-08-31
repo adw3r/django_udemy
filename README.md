@@ -47,5 +47,6 @@ All actions should be executed from the source directory of the project and only
 ## Docker run
 
 1. ```bash
+   cd store
    docker-compose up -d
    ```
