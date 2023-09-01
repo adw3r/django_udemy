@@ -1,4 +1,5 @@
 from django.db import models
+
 from products.models import Bucket
 from users.models import User
 

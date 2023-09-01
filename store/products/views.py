@@ -1,9 +1,10 @@
-from common.views import TitleMixin
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
+
+from common.views import TitleMixin
 from products.models import Bucket, Product, ProductCategory
 
 
@@ -47,16 +48,7 @@ class ProductsListView(TitleMixin, ListView):
 
 @login_required
 def bucket_add(request, product_id):
-    product = Product.objects.get(id=product_id)
-    buckets = Bucket.objects.filter(user=request.user, product=product)
-
-    if not buckets.exists():
-        Bucket.objects.create(user=request.user, product=product, qty=1)
-    else:
-        bucket = buckets.first()
-        bucket.qty += 1
-        bucket.save()
-
+    Bucket.create_or_update(product_id, request.user)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 

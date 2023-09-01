@@ -20,6 +20,7 @@ django-allauth==0.55.0
 django-debug-toolbar==3.6.0
 django-environ==0.9.0
 django-extensions==3.2.1
+django-filter==23.2
 django-redis==5.2.0
 djangorestframework==3.14.0
 exceptiongroup==1.1.2
@@ -33,6 +34,7 @@ isort==5.10.1
 kombu==5.3.1
 loguru==0.7.0
 Mako==1.2.4
+Markdown==3.4.4
 MarkupSafe==2.1.3
 mccabe==0.7.0
 oauthlib==3.2.2

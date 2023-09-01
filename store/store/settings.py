@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'products',
     'users',
     'orders',
+    'api',
     # oauth
     'allauth',
     'allauth.account',
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
 
     # django rest framework
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -204,7 +206,19 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # STRIPE
-
 STRIPE_PUBLIC = env('STRIPE_PUBLIC')
 STRIPE_SECRET = env('STRIPE_SECRET')
 STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
+
+# REST
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}

@@ -1,6 +1,7 @@
 import stripe
 from django.conf import settings
 from django.db import models
+
 from users.models import User
 
 stripe.api_key = settings.STRIPE_SECRET
@@ -23,9 +24,8 @@ class Product(models.Model):
     description: str = models.TextField(null=True, blank=True)
     price: float = models.DecimalField(max_digits=6, decimal_places=2)
     qty: int = models.PositiveIntegerField(default=0)
-    img = models.ImageField(upload_to='products_images')
+    img = models.ImageField(upload_to='products_images', null=True, blank=True)
     stripe_price_id = models.CharField(max_length=128, null=True, blank=True)
-
     category: int = models.ForeignKey(to=ProductCategory, on_delete=models.CASCADE)
 
     class Meta:
@@ -92,3 +92,18 @@ class Bucket(models.Model):
             'sum': float(self.sum()),
         }
         return bucket_item
+
+    @classmethod
+    def create_or_update(cls, product_id, user):
+        buckets = Bucket.objects.filter(user=user, product__id=product_id)
+
+        if not buckets.exists():
+            bucket = Bucket.objects.create(user=user, product__id=product_id, qty=1)
+            is_created = True
+            return bucket, is_created
+        else:
+            bucket = buckets.first()
+            bucket.qty += 1
+            bucket.save()
+            is_created = False
+            return bucket, is_created

@@ -32,6 +32,7 @@ services:
     depends_on:
       - redis
       - celery
+      - db
   db:
     image: postgres:15-alpine
     restart: always
