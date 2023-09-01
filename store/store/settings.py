@@ -21,7 +21,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 DOMAIN_NAME = env('DOMAIN_NAME')
 
-ALLOWED_HOSTS = [env('HOST')]
+ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = [
     "127.0.0.1",
     'localhost'
@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+
+    # django rest framework
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -157,12 +160,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-if DEBUG:
-    STATICFILES_DIRS = [
-        BASE_DIR / 'static/'
-    ]
-else:
-    STATIC_ROOT = BASE_DIR / 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
